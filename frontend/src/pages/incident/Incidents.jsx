@@ -34,7 +34,7 @@ function Incidents() {
         <BackButton url="/incidents" />
       </div>
       <div className="container-fluid">
-        <h1 className="text-center mt-2">Incidents</h1>
+        <h1 className="text-center">Incidents</h1>
         <div className="incidents mt-3">
           <table className="table mb-2">
             <thead>

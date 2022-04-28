@@ -8,7 +8,7 @@ function IncidentsHome() {
         <BackButton url="/" />
       </div>
       <div className="container">
-        <div className="mt-2 row justify-content-center align-items-center">
+        <div className="row justify-content-center align-items-center">
           <div className="col-sm-8 col-md-6">
             <h1 className="text-center mt-2">Incident report system</h1>
             <p className="text-center mt-2">Please choose one of the options</p>

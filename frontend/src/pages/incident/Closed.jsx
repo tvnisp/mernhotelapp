@@ -34,7 +34,7 @@ function Closed() {
         <BackButton url="/incidents" />
       </div>
       <div className="container-fluid">
-        <div className="mt-2 row justify-content-center align-items-center">
+        <div className="row justify-content-center align-items-center">
           <h1 className="text-center mt-2">Closed Incidents</h1>
           <div className="incidents mt-3">
             <table className="table mb-2">

@@ -84,7 +84,7 @@ function NewIncident() {
         <BackButton url="/incidents" />
       </div>
       <div className="container">
-        <div className="mt-2 row align-items-center justify-content-center">
+        <div className="row align-items-center justify-content-center">
           <div className="col-sm-12 col-md-10 col-lg-8">
             <section className="heading">
               <h1 className="mt-2 d-flex justify-content-center align-items-center">
