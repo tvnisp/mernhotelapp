@@ -11,8 +11,8 @@ function Home() {
             <p className="text-center mt-2">Please choose one of the options</p>
             <div className="d-flex flex-column">
               <LinkButton url="/incidents">Incidents</LinkButton>
-              <LinkButton url="/handover">Handovers</LinkButton>
-              <LinkButton url="/wplan">Work plans</LinkButton>
+              <LinkButton url="#">Handovers (To be implemented)</LinkButton>
+              <LinkButton url="#">Work plans (To be implemented)</LinkButton>
             </div>
           </div>
         </div>
