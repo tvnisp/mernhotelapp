@@ -56,25 +56,33 @@ function Login({ version }) {
   }
 
   return (
-    <div className="container d-flex justify-content-center align-items-center">
-      <div className="col-sm-8 col-md-6">
-        <h1 className="text-center mt-2 d-flex justify-content-center align-items-center">
-          <FiLogIn className="m-2" /> Login
-        </h1>
-        <form className="d-flex flex-column custom_form" onSubmit={onSubmit}>
-          <label htmlFor="email">EMAIL ADDRESS</label>
-          <input name="email" value={email} type="email" onChange={onChange} />
-          <label htmlFor="password">PASSWORD</label>
-          <input
-            name="password"
-            type="password"
-            value={password}
-            onChange={onChange}
-          />
-          <button className="btn btn-outline-light mt-2">LOGIN</button>
-        </form>
+    <>
+      <div className="backButton"></div>
+      <div className="container d-flex justify-content-center align-items-center">
+        <div className="col-12 col-sm-10 col-md-6">
+          <h1 className="text-center mt-2 d-flex justify-content-center align-items-center">
+            <FiLogIn className="m-2" /> Login
+          </h1>
+          <form className="d-flex flex-column custom_form" onSubmit={onSubmit}>
+            <label htmlFor="email">EMAIL ADDRESS</label>
+            <input
+              name="email"
+              value={email}
+              type="email"
+              onChange={onChange}
+            />
+            <label htmlFor="password">PASSWORD</label>
+            <input
+              name="password"
+              type="password"
+              value={password}
+              onChange={onChange}
+            />
+            <button className="btn btn-outline-light mt-2">LOGIN</button>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
