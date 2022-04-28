@@ -13,7 +13,7 @@ function OpenIncident({ incident }) {
   const onIncidentDelete = (e) => {
     e.preventDefault();
     dispatch(deleteIncident(incident._id));
-    if (user._id === incident.user) {
+    if (user._id === incident.user || user.rights > 1) {
       toast.success("Incident deleted");
     } else {
       toast.error("Not authorised");
@@ -55,11 +55,12 @@ function OpenIncident({ incident }) {
           </Link>
         </th>
         <th>
-          {user._id === incident.user && (
-            <button onClick={onIncidentDelete} className="btn btn-light">
-              <FaRegTrashAlt />
-            </button>
-          )}
+          {user._id === incident.user ||
+            (user.rights > 1 && (
+              <button onClick={onIncidentDelete} className="btn btn-light">
+                <FaRegTrashAlt />
+              </button>
+            ))}
         </th>
       </tr>
     </>

@@ -192,17 +192,18 @@ function Incident() {
                       >
                         Close Incident
                       </button>
-                      {user._id === incident.user && (
-                        <>
-                          <span> </span>
-                          <button
-                            onClick={onIncidentDelete}
-                            className="btn btn-danger"
-                          >
-                            Delete
-                          </button>
-                        </>
-                      )}
+                      {user._id === incident.user ||
+                        (user.rights > 1 && (
+                          <>
+                            <span> </span>
+                            <button
+                              onClick={onIncidentDelete}
+                              className="btn btn-danger"
+                            >
+                              Delete
+                            </button>
+                          </>
+                        ))}
                     </div>
                   </>
                 )}
