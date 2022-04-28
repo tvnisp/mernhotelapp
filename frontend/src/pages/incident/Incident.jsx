@@ -78,32 +78,44 @@ function Incident() {
           <section className="details d-flex flex-column justify-content-around align-items-between">
             <div className="row ">
               <div className="col">
-                <h5 className="text-warning mb-0">Incident ID:</h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Incident ID:
+                </h5>
                 <p className="mb-1">{incident._id}</p>
-                <h5 className="text-warning mb-0">Posted by: </h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Posted by:{" "}
+                </h5>
                 <p className="mb-1">{incident.username}</p>
                 {assignedTo && (
                   <>
-                    <h5 className="text-warning mb-0">Assigned To: </h5>
+                    <h5 className="text-light bg-secondary mb-0">
+                      Assigned To:{" "}
+                    </h5>
                     <p className="mb-1">
                       {assignedTo.name} {assignedTo.lastname}
                     </p>
                   </>
                 )}
-                <h5 className="text-warning mb-0">Created at:</h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Created at:
+                </h5>
                 <p className="mb-1">
                   {new Date(incident.createdAt).toLocaleString("en-US")}
                 </p>
                 {incident.resolvedAt && (
                   <div>
-                    <h5 className="text-warning mb-0">Resolved at:</h5>
+                    <h5 className="text-light bg-secondary border-bottom mb-0">
+                      Resolved at:
+                    </h5>
                     <p className="mb-1">
                       {new Date(incident.resolvedAt).toLocaleString("en-US")}
                     </p>
                   </div>
                 )}
 
-                <h5 className="text-warning mb-0">Status:</h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Status:
+                </h5>
                 <p className="mb-1">
                   {incident.status === "open" ||
                   incident.status === "closed" ? (
@@ -114,11 +126,17 @@ function Incident() {
                     </span>
                   )}
                 </p>
-                <h5 className="text-warning mb-0">Location:</h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Location:
+                </h5>
                 <p className="mb-1">{incident.location}</p>
-                <h5 className="text-warning mb-0">Responsible department</h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Responsible department
+                </h5>
                 <p className="mb-1">{incident.responsibleDepartment}</p>
-                <h5 className="text-warning mb-0">Priority Level:</h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Priority Level:
+                </h5>
                 <p className="mb-1">
                   {incident.priorityLevel === "critical" ||
                   incident.priorityLevel === "high" ? (
@@ -133,11 +151,15 @@ function Incident() {
                 </p>
               </div>
               <div className="col">
-                <h5 className="text-warning mb-0">Description: </h5>
+                <h5 className="text-light bg-secondary border-bottom mb-0">
+                  Description:{" "}
+                </h5>
                 <p className="mb-1">{incident.description}</p>
                 {incident.productImage && (
                   <>
-                    <h5 className="text-warning mb-0">Image:</h5>
+                    <h5 className="text-light bg-secondary border-bottom mb-0">
+                      Image:
+                    </h5>
                     <img
                       className="mt-2 mb-2"
                       src={`/${incident.productImage}`}
@@ -160,16 +182,13 @@ function Incident() {
                         Edit
                       </Link>
                       <span> </span> */}
-                      <button
-                        onClick={onAssign}
-                        className="btn btn-info text-white"
-                      >
+                      <button onClick={onAssign} className="btn btn-dark">
                         Assign
                       </button>
                       <span> </span>
                       <button
                         onClick={onIncidentClose}
-                        className="btn btn-success btn-block"
+                        className="btn btn-dark btn-block"
                       >
                         Close Incident
                       </button>

@@ -30,8 +30,10 @@ function Incidents() {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="backButton">
         <BackButton url="/incidents" />
+      </div>
+      <div className="container-fluid">
         <h1 className="text-center mt-2">Incidents</h1>
         <div className="incidents mt-3">
           <table className="table mb-2">

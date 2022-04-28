@@ -161,8 +161,12 @@ function NewIncident() {
               />
 
               <label htmlFor="image">IMAGE</label>
-              <span>.jpeg, .jpg, .png</span>
-              <input type="file" onChange={onImageChange} />
+              <span>.jpeg, .png, .gif, .bmp</span>
+              <input
+                type="file"
+                onChange={onImageChange}
+                accept="image/png, image/jpeg, image/gif ,image/bmp"
+              />
 
               <button className="btn btn-outline-light mt-2 mb-2">ADD</button>
             </form>

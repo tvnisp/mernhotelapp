@@ -60,6 +60,7 @@ header nav span {
 
 .backButton {
   min-height: 7vh;
+  padding: 0.5rem;
 }
 
 .container {
@@ -68,7 +69,7 @@ header nav span {
 }
 
 .container-fluid {
-  min-height: 80vh;
+  min-height: 73vh;
   /* overflow: scroll; */
 }
 
@@ -164,6 +165,6 @@ select {
 }
 
 .details img {
-  max-width: 300px;
+  max-width: 200px;
   border: 2px solid white;
 }
