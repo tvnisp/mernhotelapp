@@ -7,11 +7,12 @@ import {
   closeIncident,
   assignIncident,
 } from "../../features/incident/incidentSlice";
-import { useParams, useNavigate, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner";
 import { deleteIncident } from "../../features/incident/incidentSlice";
 
 function Incident() {
+  const { user } = useSelector((state) => state.auth);
   const { incident, isLoading, isError, message } = useSelector(
     (state) => state.incidents
   );
@@ -152,13 +153,13 @@ function Incident() {
                 {incident.status !== "closed" && (
                   <>
                     <div className="buttons mb-2 mt-3">
-                      <Link
+                      {/* <Link
                         className="btn btn-secondary"
                         to={`/incidents/${incident._id}`}
                       >
                         Edit
                       </Link>
-                      <span> </span>
+                      <span> </span> */}
                       <button
                         onClick={onAssign}
                         className="btn btn-info text-white"
@@ -172,13 +173,17 @@ function Incident() {
                       >
                         Close Incident
                       </button>
-                      <span> </span>
-                      <button
-                        onClick={onIncidentDelete}
-                        className="btn btn-danger"
-                      >
-                        Delete
-                      </button>
+                      {user._id === incident.user && (
+                        <>
+                          <span> </span>
+                          <button
+                            onClick={onIncidentDelete}
+                            className="btn btn-danger"
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
                     </div>
                   </>
                 )}

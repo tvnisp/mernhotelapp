@@ -1,18 +1,23 @@
 import React from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { AiOutlineFolderOpen } from "react-icons/ai";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { deleteIncident } from "../features/incident/incidentSlice";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function OpenIncident({ incident }) {
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const onIncidentDelete = (e) => {
     e.preventDefault();
     dispatch(deleteIncident(incident._id));
-    toast.success("Incident has been deleted");
+    if (user._id === incident.user) {
+      toast.success("Incident deleted");
+    } else {
+      toast.error("Not authorised");
+    }
   };
   return (
     <>
@@ -50,9 +55,11 @@ function OpenIncident({ incident }) {
           </Link>
         </th>
         <th>
-          <button onClick={onIncidentDelete} className="btn btn-light">
-            <FaRegTrashAlt />
-          </button>
+          {user._id === incident.user && (
+            <button onClick={onIncidentDelete} className="btn btn-light">
+              <FaRegTrashAlt />
+            </button>
+          )}
         </th>
       </tr>
     </>

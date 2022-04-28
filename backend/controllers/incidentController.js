@@ -110,10 +110,10 @@ const deleteIncident = asyncHandler(async (req, res) => {
   }
   // console.log(incident.user.toString());
   // console.log(req.user.id);
-  // if (incident.user.toString() != req.user.id) {
-  //   res.status(401);
-  //   throw new Error("Not authorised");
-  // }
+  if (incident.user.toString() != req.user.id) {
+    res.status(401);
+    throw new Error("Not authorised");
+  }
 
   await incident.remove();
 
