@@ -171,17 +171,9 @@ function Incident() {
             </div>
             <div className="row">
               <div className="col">
-                {" "}
-                {incident.status !== "closed" && (
-                  <>
-                    <div className="buttons mb-2 mt-3">
-                      {/* <Link
-                        className="btn btn-secondary"
-                        to={`/incidents/${incident._id}`}
-                      >
-                        Edit
-                      </Link>
-                      <span> </span> */}
+                <div className="buttons mb-2 mt-3">
+                  {incident.status !== "closed" ? (
+                    <>
                       <button onClick={onAssign} className="btn btn-dark">
                         Assign
                       </button>
@@ -203,9 +195,23 @@ function Incident() {
                           </button>
                         </>
                       )}
-                    </div>
-                  </>
-                )}
+                    </>
+                  ) : (
+                    <>
+                      {(user._id === incident.user || user.rights > 1) && (
+                        <>
+                          <span> </span>
+                          <button
+                            onClick={onIncidentDelete}
+                            className="btn btn-danger"
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </section>
