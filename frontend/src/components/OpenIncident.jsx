@@ -55,12 +55,11 @@ function OpenIncident({ incident }) {
           </Link>
         </th>
         <th>
-          {user._id === incident.user ||
-            (user.rights > 1 && (
-              <button onClick={onIncidentDelete} className="btn btn-light">
-                <FaRegTrashAlt />
-              </button>
-            ))}
+          {(user._id === incident.user || user.rights > 1) && (
+            <button onClick={onIncidentDelete} className="btn btn-light">
+              <FaRegTrashAlt />
+            </button>
+          )}
         </th>
       </tr>
     </>
