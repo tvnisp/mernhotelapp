@@ -21,7 +21,10 @@ const incidentSchema = mongoose.Schema(
     },
     assignedTo: {
       name: String,
-      email: String,
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
       lastname: String,
     },
     approximateResTime: Number,

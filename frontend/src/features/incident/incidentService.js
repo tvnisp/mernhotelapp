@@ -62,7 +62,7 @@ const assignIncident = async (incidentId, user, token) => {
     {
       assignedTo: {
         name: user.name,
-        email: user.email,
+        user: user._id,
         lastname: user.lastName,
       },
       status: "open",
