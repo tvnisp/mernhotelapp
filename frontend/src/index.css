@@ -171,4 +171,8 @@ select {
   max-width: 200px;
   border: 2px solid white;
 }
+
+.plan {
+  max-height: 500px;
+}
 /*# sourceMappingURL=index.css.map */
