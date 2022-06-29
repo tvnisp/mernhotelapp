@@ -10,6 +10,7 @@ import Spinner from "../../components/Spinner";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import FilterButton from "../../components/FilterButton";
+import Pagination from "../../components/Pagination";
 
 function Handovers() {
   const { user } = useSelector((state) => state.auth);
@@ -18,6 +19,22 @@ function Handovers() {
   );
   const [item, setItem] = useState(handovers);
   const menuItems = [...new Set(handovers.map((Val) => Val.outlet))];
+
+  //------
+
+  //Pagination
+  //State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage] = useState(5);
+  // Get current posts
+  const indexOfLastItem = currentPage * itemPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemPerPage;
+  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  //---------
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -33,6 +50,10 @@ function Handovers() {
   useEffect(() => {
     dispatch(getHandovers());
   }, [dispatch]);
+
+  useEffect(() => {
+    setItem(handovers);
+  }, [handovers]);
 
   if (isLoading) {
     return <Spinner />;
@@ -61,7 +82,6 @@ function Handovers() {
       <div className="container-fluid">
         <h1 className="text-center">Handovers</h1>
         <hr />
-        <h3 className="text-center">Filter by responsible department:</h3>
         <FilterButton
           filterItem={filterItem}
           setItem={setItem}
@@ -70,7 +90,7 @@ function Handovers() {
         />
         <hr />
         <div className="handovers mt-3">
-          {[...item].reverse().map((handover) => (
+          {[...currentItems].reverse().map((handover) => (
             <div className="p-2 mb-2 border">
               <h3>Employee: {handover.username}</h3>
               <hr />
@@ -101,6 +121,11 @@ function Handovers() {
             </div>
           ))}
         </div>
+        <Pagination
+          itemPerPage={itemPerPage}
+          totalItems={item.length}
+          paginate={paginate}
+        />
       </div>
     </>
   );

@@ -2,8 +2,24 @@ import React from "react";
 
 const FilterButton = ({ filterItem, setItem, menuItems, Data }) => {
   return (
-    <>
-      <div className="d-flex justify-content-center">
+    <div className="d-flex flex-column align-items-end">
+      <p>Filter by department:</p>
+      <select
+        className="d-block"
+        onChange={(e) => {
+          e.target.value === "All" ? setItem(Data) : filterItem(e.target.value);
+        }}
+      >
+        <option value={"All"}>All</option>
+        {menuItems.map((val, id) => {
+          return (
+            <option key={id} value={val}>
+              {val}
+            </option>
+          );
+        })}
+      </select>
+      {/* <div className="d-flex justify-content-center">
         {menuItems.map((Val, id) => {
           return (
             <button
@@ -21,8 +37,8 @@ const FilterButton = ({ filterItem, setItem, menuItems, Data }) => {
         >
           All
         </button>
-      </div>
-    </>
+      </div> */}
+    </div>
   );
 };
 

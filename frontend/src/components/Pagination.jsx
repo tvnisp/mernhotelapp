@@ -1,18 +1,22 @@
-const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
+const Pagination = ({ itemPerPage, totalItems, paginate }) => {
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalItems / itemPerPage); i++) {
     pageNumbers.push(i);
   }
 
   return (
-    <nav>
+    <nav className="d-flex justify-content-center">
       <ul className="pagination">
         {pageNumbers.map((number) => (
           <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} href="!#" className="page-link">
+            <button
+              onClick={() => paginate(number)}
+              href="#"
+              className="btn btn-dark border-light mx-1"
+            >
               {number}
-            </a>
+            </button>
           </li>
         ))}
       </ul>

@@ -5,6 +5,7 @@ import { getIncidents, reset } from "../../features/incident/incidentSlice";
 import Spinner from "../../components/Spinner";
 import OpenIncident from "../../components/OpenIncident";
 import FilterButton from "../../components/FilterButton";
+import Pagination from "../../components/Pagination";
 
 function Incidents() {
   const { incidents, isLoading, isSuccess } = useSelector(
@@ -20,6 +21,22 @@ function Incidents() {
     ...new Set(filterItems.map((Val) => Val.responsibleDepartment)),
   ];
 
+  //------
+
+  //Pagination
+  //State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage] = useState(5);
+  // Get current posts
+  const indexOfLastItem = currentPage * itemPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemPerPage;
+  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  //---------
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,6 +50,11 @@ function Incidents() {
   useEffect(() => {
     dispatch(getIncidents());
   }, [dispatch]);
+
+  useEffect(() => {
+    setItem(filterItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incidents]);
 
   const filterItem = (curcat) => {
     const newItem = incidents.filter((newVal) => {
@@ -59,7 +81,7 @@ function Incidents() {
           filterItem={filterItem}
           setItem={setItem}
           menuItems={menuItems}
-          Data={incidents}
+          Data={filterItems}
         />
         <hr />
         <div className="incidents mt-3">
@@ -93,7 +115,7 @@ function Incidents() {
               </tr>
             </thead>
             <tbody>
-              {item
+              {currentItems
                 .filter(
                   (incident) =>
                     incident.status === "new" || incident.status === "open"
@@ -104,6 +126,11 @@ function Incidents() {
             </tbody>
           </table>
         </div>
+        <Pagination
+          itemPerPage={itemPerPage}
+          totalItems={item.length}
+          paginate={paginate}
+        />
       </div>
     </>
   );

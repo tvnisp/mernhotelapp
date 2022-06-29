@@ -6,13 +6,29 @@ import Spinner from "../../components/Spinner";
 import FilterButton from "../../components/FilterButton";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Pagination from "../../components/Pagination";
 
 function Plans() {
   const { user } = useSelector((state) => state.auth);
   const { plans, isLoading, isSuccess } = useSelector((state) => state.plans);
-
   const [item, setItem] = useState(plans);
   const menuItems = [...new Set(plans.map((Val) => Val.outlet))];
+
+  //------
+
+  //Pagination
+  //State
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemPerPage] = useState(2);
+  // Get current posts
+  const indexOfLastItem = currentPage * itemPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemPerPage;
+  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  //---------
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,6 +44,10 @@ function Plans() {
   useEffect(() => {
     dispatch(getPlans());
   }, [dispatch]);
+
+  useEffect(() => {
+    setItem(plans);
+  }, [plans]);
 
   const filterItem = (curcat) => {
     const newItem = plans.filter((newVal) => {
@@ -56,7 +76,6 @@ function Plans() {
       <div className="container-fluid">
         <h1 className="text-center">Plans</h1>
         <hr />
-        <h3 className="text-center">Filter by responsible department:</h3>
         <FilterButton
           filterItem={filterItem}
           setItem={setItem}
@@ -65,7 +84,7 @@ function Plans() {
         />
         <hr />
         <div className="plans mt-3">
-          {[...item].reverse().map((plan) => (
+          {[...currentItems].reverse().map((plan) => (
             <div className="p-2 mb-2 border">
               <h3>Employee: {plan.username}</h3>
               <hr />
@@ -98,6 +117,11 @@ function Plans() {
             </div>
           ))}
         </div>
+        <Pagination
+          itemPerPage={itemPerPage}
+          totalItems={item.length}
+          paginate={paginate}
+        />
       </div>
     </>
   );
