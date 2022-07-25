@@ -1,6 +1,6 @@
 function DarkRowTable({ children }) {
   return (
-    <tr className="bg-white border-b dark:bg-brightRedLight dark:border-gray-700 text-white">
+    <tr className="border-b bg-brightRedLight border-gray-700 text-white">
       {children}{" "}
     </tr>
   );

@@ -15,7 +15,7 @@ function Incidents() {
     <>
       <section id="incidents_page" className="h-full">
         {/* Flex Container */}
-        <div className="container mb-32 md:mb-0 h-full mx-auto px-6 md:space-x-6 space-y-3 md:space-y-0 md:justify-around justify-center md:items-center flex flex-col md:flex-row md:mb-20">
+        <div className="container mb-32 md:mb-0 h-full mx-auto px-6 md:space-x-6 space-y-3 md:space-y-0 md:justify-around justify-center md:items-center flex flex-col md:flex-row">
           <div className="md:hidden flex flex-col space-y-3">
             <h1 className="text-3xl font-bold text-center">Incidents</h1>
             <FormButton onClick={handleCreateToggle}>

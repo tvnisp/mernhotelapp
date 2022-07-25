@@ -88,10 +88,16 @@ function OpenIncidents() {
           <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue dark:text-gray-400">
             <TableHead>
               <tr>
-                <th scope="col" className="py-3 px-6 hidden md:table-cell">
+                <th
+                  scope="col"
+                  className="py-3 px-6 hidden md:table-cell md:rounded-tl"
+                >
                   ID
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th
+                  scope="col"
+                  className="py-3 px-6 rounded-tl md:rounded-none"
+                >
                   Created
                 </th>
                 <th scope="col" className="py-3 px-6 hidden md:table-cell">
@@ -106,7 +112,7 @@ function OpenIncidents() {
                 <th scope="col" className="py-3 px-6 hidden lg:table-cell">
                   Priority
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th scope="col" className="py-3 px-6 rounded-tr">
                   View
                 </th>
               </tr>

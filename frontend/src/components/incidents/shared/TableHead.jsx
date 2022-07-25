@@ -1,6 +1,6 @@
 function TableHead({ children }) {
   return (
-    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-darkBlue dark:text-white">
+    <thead className="text-xs md:text-sm uppercase bg-darkBlue text-white">
       {children}
     </thead>
   );

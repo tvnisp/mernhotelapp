@@ -102,13 +102,19 @@ function OpenIncidents() {
         />
 
         <div className="overflow-x-auto w-full relative shadow-md sm:rounded-lg border p-6 rounded-lg bg-veryLightGray">
-          <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue dark:text-gray-400">
+          <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue ">
             <TableHead>
               <tr>
-                <th scope="col" className="py-3 px-6 hidden md:table-cell">
+                <th
+                  scope="col"
+                  className="py-3 px-6 hidden md:table-cell md:rounded-tl"
+                >
                   ID
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th
+                  scope="col"
+                  className="py-3 px-6 rounded-tl md:rounded-none"
+                >
                   Creator
                 </th>
                 <th scope="col" className="py-3 px-6 w-42 md:w-auto">
@@ -123,10 +129,16 @@ function OpenIncidents() {
                 <th scope="col" className="py-3 px-6 hidden xl:table-cell">
                   Priority
                 </th>
-                <th scope="col" className="py-3 px-6">
+                <th
+                  scope="col"
+                  className="py-3 px-6 rounded-tr lg:rounded-none"
+                >
                   View
                 </th>
-                <th scope="col" className="py-3 px-6 hidden lg:table-cell">
+                <th
+                  scope="col"
+                  className="py-3 px-6 hidden lg:table-cell md:rounded-tr"
+                >
                   Delete
                 </th>
               </tr>
