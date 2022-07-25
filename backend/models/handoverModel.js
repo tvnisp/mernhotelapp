@@ -22,7 +22,7 @@ const handoverSchema = mongoose.Schema(
     shift: {
       type: String,
       required: [true, "Please add the shift"],
-      enum: ["early", "late"],
+      enum: ["Early", "Late"],
     },
   },
   {

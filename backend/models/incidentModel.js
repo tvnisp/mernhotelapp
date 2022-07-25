@@ -31,7 +31,6 @@ const incidentSchema = mongoose.Schema(
     status: {
       type: String,
       required: true,
-      enum: ["new", "open", "closed"],
       default: "new",
     },
     resolvedAt: Date,
@@ -42,7 +41,7 @@ const incidentSchema = mongoose.Schema(
     priorityLevel: {
       type: String,
       required: [true, "Please add a priority"],
-      enum: ["critical", "high", "medium", "low"],
+      enum: ["Critical", "High", "Medium", "Low"],
     },
     productImage: {
       type: String,
