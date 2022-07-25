@@ -149,7 +149,7 @@ function Incident() {
             <div className="flex justify-center items-center bg-brightRedSupLight border-b rounded text-left p-1  text-darBlue">
               <img
                 className="h-80 rounded"
-                src={incident.productImage}
+                src={`/${incident.productImage}`}
                 alt="Incident"
               />
             </div>
