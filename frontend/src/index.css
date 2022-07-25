@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-image: url("../public/assets/img/curve_line.svg");
+  background-repeat: no-repeat;
+  background-size: 1200px;
+  background-position: 105% -30%;
+}
+
+@media (max-width: 1200px) {
+  body {
+    background-position: 40% -40%;
+  }
+}
+
+@media (max-height: 800px) {
+  body {
+    background-position: 40% -70%;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    background-image: none;
+  }
+}
+
+.Toastify__toast-container--top-right {
+  top: 80px !important;
+}

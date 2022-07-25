@@ -1,0 +1,174 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right bottom,
+    from(#35494b),
+    to(#567779)
+  );
+  color: white;
+  font-family: "Noto Serif Display", serif;
+}
+
+header {
+  height: 10vh;
+  padding: 5px;
+  border-bottom: 1px solid white;
+}
+
+footer {
+  height: 10vh;
+  text-align: center;
+  padding: 5px;
+  font-size: 14px;
+  border-top: 1px solid white;
+}
+
+header nav span {
+  margin-right: 5px;
+}
+
+.header nav {
+  width: 200px;
+}
+
+@media only screen and (max-width: 600px) {
+  .header nav {
+    width: 150px;
+  }
+  .header nav a {
+    font-size: 70% !important;
+  }
+  .header h2 {
+    font-size: 95% !important;
+  }
+  .header nav button {
+    font-size: 70% !important;
+  }
+}
+
+.fixed-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.backButton {
+  min-height: 7vh;
+  padding: 0.5rem;
+}
+
+.container {
+  min-height: 73vh;
+  /* overflow: scroll; */
+}
+
+.container-fluid {
+  min-height: 73vh;
+  /* overflow: scroll; */
+}
+
+/* .login,
+  .register {
+    height: 100%;
+  } */
+
+.loadingSpinnerContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loadingSpinner {
+  width: 64px;
+  height: 64px;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+  animation: spin 1.2s linear infinite;
+}
+
+.Toastify__toast-container--top-right {
+  top: 80px !important;
+}
+
+.incidents table {
+  color: white;
+}
+
+.table tr th {
+  text-align: center;
+}
+
+.table button,
+.table a {
+  font-size: 0.8rem !important;
+  padding: 2px 8px !important;
+}
+
+@media only screen and (max-width: 650px) {
+  .table {
+    font-size: 70%;
+  }
+}
+
+.badge {
+  min-width: 50px !important;
+  min-height: 20px !important;
+}
+
+@media only screen and (max-width: 760px) {
+  .md-hidden {
+    display: none;
+  }
+}
+@media only screen and (max-width: 760px) {
+  .badge {
+    min-width: 30px !important;
+    min-height: 10px !important;
+  }
+  .table button,
+  .table a {
+    font-size: 0.55rem !important;
+    padding: 1px 5px !important;
+  }
+}
+
+.buttons button,
+.buttons a {
+  min-width: 100px !important;
+  margin-bottom: 5px;
+}
+
+.custom_form {
+  margin: 0 auto;
+  max-width: 600px;
+}
+
+.custom_form input,
+textarea,
+select {
+  background-color: #bcc5c5;
+  color: black;
+}
+
+.details img {
+  max-width: 200px;
+  border: 2px solid white;
+}
+
+.plan {
+  max-height: 500px;
+}
