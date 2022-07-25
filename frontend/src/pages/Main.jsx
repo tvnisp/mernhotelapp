@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
 import { BsArrowDownSquareFill } from "react-icons/bs";
-import { useNavigate } from "react-router-dom";
 import Notification from "../components/shared/Notification";
 
 function Main() {
-  const navigate = useNavigate();
-
   // window.addEventListener("keydown", (e) => {
   //   e.keyCode === 73 && navigate("/incidents");
   //   e.keyCode === 72 && navigate("/handovers");

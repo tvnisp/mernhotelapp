@@ -60,7 +60,6 @@ function Incident() {
   if (isError) {
     return <h5>Something went wrong</h5>;
   }
-  const assignedTo = incident.assignedTo;
 
   return (
     <section id="incident_page">
@@ -151,7 +150,7 @@ function Incident() {
               <img
                 className="h-80 rounded"
                 src={incident.productImage}
-                alt="image"
+                alt="Incident"
               />
             </div>
             <div className="mt-3.5 flex items-center justify-start space-x-2">
