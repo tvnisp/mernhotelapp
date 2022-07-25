@@ -57,6 +57,9 @@ function NewPlan() {
     planData.append("outlet", outlet);
     planData.append("file", file);
     dispatch(createPlan(planData));
+    setFormData({
+      outlet: "",
+    });
   };
 
   if (isLoading) {

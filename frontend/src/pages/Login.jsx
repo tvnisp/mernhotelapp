@@ -32,7 +32,7 @@ function Login() {
       navigate("/");
       toast.success(user.name + " has logged in");
     }
-  });
+  }, [isError, isSuccess]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -41,7 +41,7 @@ function Login() {
     }));
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const userData = {
       email,
