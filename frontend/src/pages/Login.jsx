@@ -32,7 +32,7 @@ function Login() {
       navigate("/");
       toast.success(user.name + " has logged in");
     }
-  });
+  }, [isLoading]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
