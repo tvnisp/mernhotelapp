@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { createHandover, reset } from "../../features/handover/handoverSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../shared/Spinner";
 import Input from "../shared/Input";
 import Select from "../shared/Select";
@@ -24,19 +24,20 @@ function NewIncident() {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const loc = useLocation();
 
   useEffect(() => {
     if (isError) {
       toast.error(message);
     }
 
-    if (isSuccess) {
+    if (isSuccess && loc.pathname === "/handovers") {
       dispatch(reset());
       navigate("/handovers");
     }
 
     dispatch(reset());
-  }, [dispatch, isError, isSuccess, navigate, message]);
+  }, [dispatch, isError, isSuccess, navigate, message, loc.pathname]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({

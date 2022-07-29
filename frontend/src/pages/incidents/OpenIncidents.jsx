@@ -12,11 +12,10 @@ import TableHead from "../../components/incidents/shared/TableHead";
 import { Link } from "react-router-dom";
 import { AiOutlineFolderOpen } from "react-icons/ai";
 import { MdOutlineDeleteOutline } from "react-icons/md";
-import FilterButton from "../../components/shared/FilterButton";
 import Pagination from "../../components/shared/Pagination";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
-import { BsPlusSquare } from "react-icons/bs";
+import Filters from "../../components/shared/Filters";
 
 function OpenIncidents() {
   const { user } = useSelector((state) => state.auth);
@@ -114,22 +113,16 @@ function OpenIncidents() {
             Current Incidents
           </h1>
         </div>
-        <div className="w-full flex justify-between items-center">
-          <div>
-            <Link to="/incidents/create">
-              <BsPlusSquare className="text-3xl ml-1 mt-8 text-darkBlue" />
-            </Link>
-          </div>
-          <div>
-            <FilterButton
-              filterItems={filterItems}
-              setItems={setItems}
-              priorityLevelItems={priorityLevelItems}
-              responsibleDepartmentItems={responsibleDepartmentItems}
-              Data={filteredItems}
-            />
-          </div>
-        </div>
+
+        <Filters
+          link="/incidents/create"
+          filterItems={filterItems}
+          setItems={setItems}
+          priorityLevelItems={priorityLevelItems}
+          responsibleDepartmentItems={responsibleDepartmentItems}
+          Data={filteredItems}
+        />
+
         <div className="overflow-x-auto w-full relative shadow-md sm:rounded-lg border p-6 rounded-lg bg-veryLightGray">
           <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue ">
             <TableHead>

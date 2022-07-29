@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { createIncident, reset } from "../../features/incident/incidentSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Spinner from "../shared/Spinner";
 import Input from "../shared/Input";
 import Select from "../shared/Select";
@@ -22,6 +22,8 @@ function NewIncident() {
     priorityLevel: "",
   });
 
+  const loc = useLocation();
+
   const { description, location, responsibleDepartment, priorityLevel } =
     formData;
 
@@ -37,13 +39,17 @@ function NewIncident() {
       toast.error(message);
     }
 
-    if (isSuccess) {
+    if (
+      isSuccess &&
+      (loc.pathname === "/incidents/open" ||
+        loc.pathname === "/incidents/closed")
+    ) {
       dispatch(reset());
       navigate("/incidents");
     }
 
     dispatch(reset());
-  }, [dispatch, isError, isSuccess, navigate, message]);
+  }, [dispatch, isError, isSuccess, navigate, message, loc.pathname]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
