@@ -15,29 +15,44 @@ function OpenIncidents() {
     (state) => state.incidents
   );
 
-  const filterItems = incidents.filter((incident) =>
-    incident.status.includes("closed")
-  );
-  const [item, setItem] = useState(filterItems);
-  const menuItems = [
-    ...new Set(filterItems.map((Val) => Val.responsibleDepartment)),
-  ];
-
-  //------
+  // const filterItems = incidents.filter((incident) =>
+  //   incident.status.includes("closed")
+  // );
+  // const menuItems = [
+  //   ...new Set(filterItems.map((Val) => Val.responsibleDepartment)),
+  // ];
+  // const filterItem = (curcat) => {
+  //   const newItem = incidents.filter((newVal) => {
+  //     return newVal.responsibleDepartment === curcat;
+  //   });
+  //   setItem(newItem);
+  // };
 
   //Pagination
   //State
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(5);
-  // Get current posts
+  //Get current posts
   const indexOfLastItem = currentPage * itemPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfFirsItem = indexOfLastItem - itemPerPage;
 
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //Sort the items
+  const sortedItems = [...incidents].sort((a, b) => {
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 
-  //---------
+  //Filter the items
+  const filteredItems = sortedItems.filter((item) => item.status === "closed");
+
+  //Get current items
+  const currentItems = filteredItems.slice(indexOfFirsItem, indexOfLastItem);
+
+  //Paginate function
+  const paginate = (number) => setCurrentPage(number);
 
   const dispatch = useDispatch();
 
@@ -53,18 +68,6 @@ function OpenIncidents() {
     dispatch(getIncidents());
   }, [dispatch]);
 
-  useEffect(() => {
-    setItem(filterItems);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [incidents]);
-
-  const filterItem = (curcat) => {
-    const newItem = incidents.filter((newVal) => {
-      return newVal.responsibleDepartment === curcat;
-    });
-    setItem(newItem);
-  };
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -77,12 +80,12 @@ function OpenIncidents() {
             Closed Incidents
           </h1>
         </div>
-        <FilterButton
+        {/* <FilterButton
           filterItem={filterItem}
           setItem={setItem}
           menuItems={menuItems}
           Data={filterItems}
-        />
+        /> */}
 
         <div className="border p-6 rounded-lg bg-veryLightGray overflow-x-auto w-full relative shadow-md sm:rounded-lg">
           <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue dark:text-gray-400">
@@ -118,94 +121,91 @@ function OpenIncidents() {
               </tr>
             </TableHead>
             <tbody>
-              {[...currentItems]
-                .reverse()
-                .filter((incident) => incident.status === "closed")
-                .map((incident, index) => {
-                  return index % 2 === 0 ? (
-                    <DarkRowTable>
-                      <td className="py-4 px-6 hidden md:table-cell">
-                        {`${incident._id.substr(0, 10)}...`}
-                      </td>
-                      <td className="py-4 px-6">{incident.username}</td>
-                      <td className="py-4 px-6 hidden md:table-cell w-40 md:w-auto">{`${incident.resolvedAt.substr(
-                        0,
-                        10
-                      )} at ${incident.resolvedAt.substr(11, 5)}`}</td>
-                      <td className="py-4 px-6">{incident.location}</td>
-                      <td className="py-4 px-6 hidden md:table-cell">
-                        <div className="bg-darkBlue w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
-                          {incident.status}
+              {currentItems.map((incident, index) => {
+                return index % 2 === 0 ? (
+                  <DarkRowTable>
+                    <td className="py-4 px-6 hidden md:table-cell">
+                      {`${incident._id.substr(0, 10)}...`}
+                    </td>
+                    <td className="py-4 px-6">{incident.username}</td>
+                    <td className="py-4 px-6 hidden md:table-cell w-40 md:w-auto">{`${incident.resolvedAt.substr(
+                      0,
+                      10
+                    )} at ${incident.resolvedAt.substr(11, 5)}`}</td>
+                    <td className="py-4 px-6">{incident.location}</td>
+                    <td className="py-4 px-6 hidden md:table-cell">
+                      <div className="bg-darkBlue w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
+                        {incident.status}
+                      </div>
+                    </td>
+                    {incident.priorityLevel === "Critical" || "Medium" ? (
+                      <td className="py-4 px-6 hidden lg:table-cell">
+                        <div className="bg-red-700 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
+                          {incident.priorityLevel}
                         </div>
                       </td>
-                      {incident.priorityLevel === "Critical" || "Medium" ? (
-                        <td className="py-4 px-6 hidden lg:table-cell">
-                          <div className="bg-red-700 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
-                            {incident.priorityLevel}
-                          </div>
-                        </td>
-                      ) : (
-                        <td className="py-4 px-6 hidden lg:table-cell">
-                          <div className="bg-orange-600 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
-                            {incident.priorityLevel}
-                          </div>
-                        </td>
-                      )}
-
-                      <td className="py-4 px-6 text-center">
-                        <Link to={`/incidents/${incident._id}`}>
-                          <div className="text-2xl">
-                            <AiOutlineFolderOpen />
-                          </div>
-                        </Link>
-                      </td>
-                    </DarkRowTable>
-                  ) : (
-                    <LightRowTable>
-                      <td className="py-4 px-6 hidden md:table-cell">
-                        {`${incident._id.substr(0, 10)}...`}
-                      </td>
-                      <td className="py-4 px-6">{incident.username}</td>
-                      <td className="py-4 px-6 hidden md:table-cell w-40 md:w-auto">{`${incident.resolvedAt.substr(
-                        0,
-                        10
-                      )} at ${incident.resolvedAt.substr(11, 5)}`}</td>
-                      <td className="py-4 px-6">{incident.location}</td>
-                      <td className="py-4 px-6 hidden md:table-cell">
-                        <div className="bg-darkBlue w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
-                          {incident.status}
+                    ) : (
+                      <td className="py-4 px-6 hidden lg:table-cell">
+                        <div className="bg-orange-600 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
+                          {incident.priorityLevel}
                         </div>
                       </td>
-                      {incident.priorityLevel === "Critical" || "Medium" ? (
-                        <td className="py-4 px-6 hidden lg:table-cell">
-                          <div className="bg-red-700 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
-                            {incident.priorityLevel}
-                          </div>
-                        </td>
-                      ) : (
-                        <td className="py-4 px-6 hidden lg:table-cell">
-                          <div className="bg-orange-600 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
-                            {incident.priorityLevel}
-                          </div>
-                        </td>
-                      )}
+                    )}
 
-                      <td className="py-4 px-6 text-center">
-                        <Link to={`/incidents/${incident._id}`}>
-                          <div className="text-2xl">
-                            <AiOutlineFolderOpen />
-                          </div>
-                        </Link>
+                    <td className="py-4 px-6 text-center">
+                      <Link to={`/incidents/${incident._id}`}>
+                        <div className="text-2xl">
+                          <AiOutlineFolderOpen />
+                        </div>
+                      </Link>
+                    </td>
+                  </DarkRowTable>
+                ) : (
+                  <LightRowTable>
+                    <td className="py-4 px-6 hidden md:table-cell">
+                      {`${incident._id.substr(0, 10)}...`}
+                    </td>
+                    <td className="py-4 px-6">{incident.username}</td>
+                    <td className="py-4 px-6 hidden md:table-cell w-40 md:w-auto">{`${incident.resolvedAt.substr(
+                      0,
+                      10
+                    )} at ${incident.resolvedAt.substr(11, 5)}`}</td>
+                    <td className="py-4 px-6">{incident.location}</td>
+                    <td className="py-4 px-6 hidden md:table-cell">
+                      <div className="bg-darkBlue w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
+                        {incident.status}
+                      </div>
+                    </td>
+                    {incident.priorityLevel === "Critical" || "Medium" ? (
+                      <td className="py-4 px-6 hidden lg:table-cell">
+                        <div className="bg-red-700 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
+                          {incident.priorityLevel}
+                        </div>
                       </td>
-                    </LightRowTable>
-                  );
-                })}
+                    ) : (
+                      <td className="py-4 px-6 hidden lg:table-cell">
+                        <div className="bg-orange-600 w-20 flex justify-center items-center px-3 text-white rounded-lg py-1">
+                          {incident.priorityLevel}
+                        </div>
+                      </td>
+                    )}
+
+                    <td className="py-4 px-6 text-center">
+                      <Link to={`/incidents/${incident._id}`}>
+                        <div className="text-2xl">
+                          <AiOutlineFolderOpen />
+                        </div>
+                      </Link>
+                    </td>
+                  </LightRowTable>
+                );
+              })}
             </tbody>
           </table>
         </div>
         <Pagination
           itemPerPage={itemPerPage}
-          totalItems={item.length}
+          totalItems={filteredItems.length}
           paginate={paginate}
         />
       </div>

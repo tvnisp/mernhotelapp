@@ -10,24 +10,29 @@ import { toast } from "react-toastify";
 
 function DisplayHandovers() {
   const { plans, isLoading, isSuccess } = useSelector((state) => state.plans);
-  const [item, setItem] = useState(plans);
-  const menuItems = [...new Set(plans.map((Val) => Val.outlet))];
-
-  //------
 
   //Pagination
   //State
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemPerPage] = useState(2);
-  // Get current posts
+  const [itemPerPage] = useState(6);
+  //Get current posts
   const indexOfLastItem = currentPage * itemPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfFirsItem = indexOfLastItem - itemPerPage;
 
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //Sort the items
+  const sortedItems = [...plans].sort((a, b) => {
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 
-  //---------
+  //Get current items
+  const currentItems = sortedItems.slice(indexOfFirsItem, indexOfLastItem);
+
+  //Paginate function
+  const paginate = (number) => setCurrentPage(number);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,17 +48,6 @@ function DisplayHandovers() {
   useEffect(() => {
     dispatch(getPlans());
   }, [dispatch]);
-
-  useEffect(() => {
-    setItem(plans);
-  }, [plans]);
-
-  const filterItem = (curcat) => {
-    const newItem = plans.filter((newVal) => {
-      return newVal.outlet === curcat;
-    });
-    setItem(newItem);
-  };
 
   const onPlanDelete = (id) => {
     if (window.confirm("Are you sure you want to delete it?")) {
@@ -76,20 +70,20 @@ function DisplayHandovers() {
               Plans
             </h1>
           </div>
-          <FilterButton
+          {/* <FilterButton
             filterItem={filterItem}
             setItem={setItem}
             menuItems={menuItems}
             Data={plans}
-          />
+          /> */}
           <div className="min-w-full">
-            {[...currentItems].reverse().map((plan) => (
+            {currentItems.map((plan) => (
               <Plan plan={plan} onClick={onPlanDelete} />
             ))}
           </div>
           <Pagination
             itemPerPage={itemPerPage}
-            totalItems={item.length}
+            totalItems={sortedItems.length}
             paginate={paginate}
           />
         </div>

@@ -15,6 +15,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import FilterButton from "../../components/shared/FilterButton";
 import Pagination from "../../components/shared/Pagination";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
 
 function OpenIncidents() {
   const { user } = useSelector((state) => state.auth);
@@ -22,30 +23,33 @@ function OpenIncidents() {
     (state) => state.incidents
   );
 
-  const filterItems = incidents.filter(
-    (incident) =>
-      incident.status.includes("new") || incident.status.includes("open")
-  );
-  const [item, setItem] = useState(filterItems);
-  const menuItems = [
-    ...new Set(filterItems.map((Val) => Val.responsibleDepartment)),
-  ];
-
-  //------
-
   //Pagination
   //State
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(5);
-  // Get current posts
+  //Get current posts
   const indexOfLastItem = currentPage * itemPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfFirsItem = indexOfLastItem - itemPerPage;
 
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //Sort the items
+  const sortedItems = [...incidents].sort((a, b) => {
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 
-  //---------
+  //Filter the items
+  const filteredItems = sortedItems.filter(
+    (item) => item.status === "open" || item.status === "new"
+  );
+
+  //Get current items
+  const currentItems = filteredItems.slice(indexOfFirsItem, indexOfLastItem);
+
+  //Paginate function
+  const paginate = (number) => setCurrentPage(number);
 
   const dispatch = useDispatch();
 
@@ -60,18 +64,6 @@ function OpenIncidents() {
   useEffect(() => {
     dispatch(getIncidents());
   }, [dispatch]);
-
-  useEffect(() => {
-    setItem(filterItems);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [incidents]);
-
-  const filterItem = (curcat) => {
-    const newItem = incidents.filter((newVal) => {
-      return newVal.responsibleDepartment === curcat;
-    });
-    setItem(newItem);
-  };
 
   const handleIncidentDelete = (incident) => {
     dispatch(deleteIncident(incident._id));
@@ -94,12 +86,12 @@ function OpenIncidents() {
             Current Incidents
           </h1>
         </div>
-        <FilterButton
+        {/* <FilterButton
           filterItem={filterItem}
           setItem={setItem}
           menuItems={menuItems}
           Data={filterItems}
-        />
+        /> */}
 
         <div className="overflow-x-auto w-full relative shadow-md sm:rounded-lg border p-6 rounded-lg bg-veryLightGray">
           <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue ">
@@ -144,15 +136,14 @@ function OpenIncidents() {
               </tr>
             </TableHead>
             <tbody>
-              {[...currentItems]
-                .reverse()
-                .filter(
-                  (incident) =>
-                    incident.status === "new" || incident.status === "open"
-                )
+              {currentItems
+                // .filter(
+                //   (incident) =>
+                //     incident.status === "new" || incident.status === "open"
+                // )
                 .map((incident, index) => {
                   return index % 2 === 0 ? (
-                    <DarkRowTable>
+                    <DarkRowTable key={uuidv4()}>
                       <td className="py-4 px-6 hidden md:table-cell">
                         {`${incident._id.substr(0, 5)}...`}
                       </td>
@@ -207,7 +198,7 @@ function OpenIncidents() {
                       </td>
                     </DarkRowTable>
                   ) : (
-                    <LightRowTable>
+                    <LightRowTable key={uuidv4()}>
                       <td className="py-4 px-6 hidden md:table-cell">
                         {`${incident._id.substr(0, 5)}...`}
                       </td>
@@ -268,7 +259,7 @@ function OpenIncidents() {
         </div>
         <Pagination
           itemPerPage={itemPerPage}
-          totalItems={item.length}
+          totalItems={filteredItems.length}
           paginate={paginate}
         />
       </div>

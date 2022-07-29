@@ -17,24 +17,28 @@ function DisplayHandovers() {
     (state) => state.handovers
   );
 
-  const [item, setItem] = useState(handovers);
-  const menuItems = [...new Set(handovers.map((Val) => Val.outlet))];
-
-  //------
-
   //Pagination
   //State
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(6);
-  // Get current posts
+  //Get current posts
   const indexOfLastItem = currentPage * itemPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemPerPage;
-  const currentItems = item.slice(indexOfFirstItem, indexOfLastItem);
+  const indexOfFirsItem = indexOfLastItem - itemPerPage;
 
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  //Sort the items
+  const sortedItems = [...handovers].sort((a, b) => {
+    if (a.createdAt > b.createdAt) {
+      return -1;
+    } else {
+      return 1;
+    }
+  });
 
-  //---------
+  //Get current items
+  const currentItems = sortedItems.slice(indexOfFirsItem, indexOfLastItem);
+
+  //Paginate function
+  const paginate = (number) => setCurrentPage(number);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -51,10 +55,6 @@ function DisplayHandovers() {
     dispatch(getHandovers());
   }, [dispatch]);
 
-  useEffect(() => {
-    setItem(handovers);
-  }, [handovers]);
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -67,12 +67,6 @@ function DisplayHandovers() {
     }
   };
 
-  const filterItem = (curcat) => {
-    const newItem = handovers.filter((newVal) => {
-      return newVal.outlet === curcat;
-    });
-    setItem(newItem);
-  };
   return (
     <>
       <section className="display_handovers_page m-2">
@@ -82,20 +76,20 @@ function DisplayHandovers() {
               Handovers
             </h1>
           </div>
-          <FilterButton
+          {/* <FilterButton
             filterItem={filterItem}
             setItem={setItem}
             menuItems={menuItems}
             Data={handovers}
-          />
+          /> */}
           <div className="w-full grid grid-cols-1 items-start md:grid-cols-2 gap-4">
-            {[...currentItems].reverse().map((handover) => (
+            {currentItems.map((handover) => (
               <Handover handover={handover} onClick={onHandoverDelete} />
             ))}
           </div>
           <Pagination
             itemPerPage={itemPerPage}
-            totalItems={item.length}
+            totalItems={sortedItems.length}
             paginate={paginate}
           />
         </div>
