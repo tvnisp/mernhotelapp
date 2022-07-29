@@ -1,5 +1,5 @@
 import FilterButton from "./FilterButton";
-import { BsPlusSquare } from "react-icons/bs";
+import { BsPlusLg } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 function Filters({
@@ -14,7 +14,7 @@ function Filters({
     <div className="w-full flex justify-between items-center">
       <div>
         <Link to={link}>
-          <BsPlusSquare className="text-3xl ml-1 mt-8 text-darkBlue" />
+          <BsPlusLg className="text-3xl ml-2 mt-8 text-darkBlue" />
         </Link>
       </div>
       <div>
