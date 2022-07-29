@@ -44,7 +44,7 @@ function Header() {
   }, [pathname]);
 
   return (
-    <nav className="relative container mx-auto p-6">
+    <nav className="relative container mx-auto py-6 px-2">
       <div className="flex items-center justify-between">
         <div className="">
           <div className=" text-3xl shadow-xl text-darkBlue">
@@ -139,7 +139,7 @@ function Header() {
             </Link>
           </div>
         )}
-        <div className="md:flex space-x-2">
+        <div className="md:flex space-x-2 items-center">
           {user ? (
             <>
               <div className="hidden md:block">

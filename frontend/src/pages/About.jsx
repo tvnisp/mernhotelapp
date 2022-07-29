@@ -10,7 +10,7 @@ function About() {
             <div className="flex flex-col md:flex-row space-x-0 md:space-x-4 space-y-6 md:space-y-0">
               <div className="md:w-1/5 flex justify-center">
                 <img
-                  className="border-2 border-darkBlue rounded-lg md:rounded-full w-40 md:w-full md:mt-0 -mt-14"
+                  className="border-2 border-darkBlue rounded-lg md:rounded-full w-40 min-h-64 md:w-full md:mt-0 -mt-14"
                   src={Me}
                   alt="Me"
                   loading="lazy"

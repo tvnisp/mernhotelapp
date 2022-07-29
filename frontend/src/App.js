@@ -47,7 +47,10 @@ function App() {
               {/* Registration */}
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
-              <Route path="/" element={<Main />} />
+
+              <Route path="/" element={<PrivateRoute />}>
+                <Route path="/" element={<Main />} />
+              </Route>
 
               {/* Incidents */}
               <Route path="/incidents" element={<PrivateRoute />}>
@@ -105,7 +108,7 @@ function App() {
           </div>
         </div>
       </Router>
-      <ToastContainer position="top-left" />
+      <ToastContainer position="top-left" limit={1} autoClose={1000} />
     </>
   );
 }

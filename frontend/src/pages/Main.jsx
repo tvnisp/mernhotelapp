@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import { BsArrowDownSquareFill } from "react-icons/bs";
-import Notification from "../components/shared/Notification";
 
 function Main() {
   // window.addEventListener("keydown", (e) => {
@@ -44,34 +43,28 @@ function Main() {
                 Plans{" "}
                 <BsArrowDownSquareFill className=" text-xl absolute top-2.5 right-3" />
               </Link>
-              <Notification txtColor={"brightRed"}>
-                *Please
-                <Link className="mx-1 hover:text-darkBlue" to={"/register"}>
-                  Sign Up
-                </Link>
-                First
-              </Notification>
             </div>
           </div>
           {/* Info */}
           <div className="hidden md:border-l-2 md:h-2/3 border-darkBlue md:flex flex-col md:justify-center space-y-3 md:w-1/2">
             <div className="mt-2 text-brightRedLight capitalize text-3xl font-bold text-end ">
-              HotelCommunity
+              <Link to="/">HotelCommunity</Link>
             </div>
             <div className="text-2xl capitalize text-end  text-darkGrayishBlue">
-              Browse current & closed incidents
+              <Link to="/incidents">Browse current & closed incidents</Link>
             </div>
             <div className="mt-2 capitalize text-2xl text-end">
-              Report incidents
+              <Link to="/incidents/create">Report incidents</Link>
             </div>
             <div className="text-2xl capitalize text-end  text-darkGrayishBlue">
-              Resolve incidents
+              <Link to="/incidents/open">Resolve incidents</Link>
             </div>
-            <div className="text-2xl capitalize text-end">Share plans</div>
+            <div className="text-2xl capitalize text-end">
+              <Link to="/plans/create">Share plans</Link>
+            </div>
             <div className="text-2xl capitalize text-darkGrayishBlue text-end">
-              Write handovers
+              <Link to="/handovers/create">Write handovers</Link>
             </div>
-            <div className="text-2xl capitalize text-end">Help your team</div>
           </div>
         </div>
       </section>

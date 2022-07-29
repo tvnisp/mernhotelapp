@@ -6,7 +6,8 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { register, reset } from "../features/auth/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Notification from "../components/shared/Notification";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -135,6 +136,7 @@ function Register() {
                   value={department}
                   onChange={onChange}
                   required={true}
+                  placeholder="Department"
                   options={[
                     "-- select an option --",
                     "Executive",
@@ -151,7 +153,17 @@ function Register() {
                     "Finance",
                   ]}
                 />
-                <FormButton type="submit">Register</FormButton>
+                <div className="flex flex-col xl:flex-row justify-between">
+                  <FormButton type="submit">Register</FormButton>
+                  <div className="mt-4 xl:mt-0">
+                    <Notification txtColor={"brightRed"}>
+                      Already a member?
+                      <Link className="mx-1 hover:text-darkBlue" to={"/login"}>
+                        Sign In
+                      </Link>
+                    </Notification>
+                  </div>
+                </div>
               </form>
             </div>
           </div>

@@ -1,7 +1,7 @@
 function Notification({ children, txtColor, font, size, hidden }) {
   return (
     <div
-      className={`${font} ${size} ${hidden} rounded border self-end border-brightRedLight bg-brightRedSupLight flex justify-start items-center p-1 px-2 text-${txtColor}`}
+      className={`${font} ${size} ${hidden} text-sm lg:text-lg rounded border text-center border-brightRedLight bg-brightRedSupLight lg:flex justify-center items-center p-1 px-2 text-${txtColor}`}
     >
       {children}
     </div>

@@ -8,7 +8,7 @@ const FilterButton = ({
   Data,
 }) => {
   return (
-    <div className="flex w-full justify-end">
+    <div className="flex w-full">
       <div className="flex flex-col items-end mr-2">
         <p className="text-lg text-darklue ">Filter by department:</p>
         <select

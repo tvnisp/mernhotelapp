@@ -16,6 +16,7 @@ import FilterButton from "../../components/shared/FilterButton";
 import Pagination from "../../components/shared/Pagination";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
+import { BsPlusSquare } from "react-icons/bs";
 
 function OpenIncidents() {
   const { user } = useSelector((state) => state.auth);
@@ -89,11 +90,15 @@ function OpenIncidents() {
   }, [incidents]);
 
   const handleIncidentDelete = (incident) => {
-    dispatch(deleteIncident(incident._id));
-    if (user._id === incident.user || user.rights > 1) {
-      toast.success("Incident deleted");
-    } else {
-      toast.error("Not authorised");
+    if (window.confirm("Are you sure you want to delete it?")) {
+      dispatch(deleteIncident(incident._id));
+      if (user._id === incident.user || user.rights > 1) {
+        toast.success("Incident deleted");
+        toast.clearWaitingQueue();
+      } else {
+        toast.error("Not authorised");
+        toast.clearWaitingQueue();
+      }
     }
   };
 
@@ -109,13 +114,22 @@ function OpenIncidents() {
             Current Incidents
           </h1>
         </div>
-        <FilterButton
-          filterItems={filterItems}
-          setItems={setItems}
-          priorityLevelItems={priorityLevelItems}
-          responsibleDepartmentItems={responsibleDepartmentItems}
-          Data={filteredItems}
-        />
+        <div className="w-full flex justify-between items-center">
+          <div>
+            <Link to="/incidents/create">
+              <BsPlusSquare className="text-3xl ml-1 mt-8 text-darkBlue" />
+            </Link>
+          </div>
+          <div>
+            <FilterButton
+              filterItems={filterItems}
+              setItems={setItems}
+              priorityLevelItems={priorityLevelItems}
+              responsibleDepartmentItems={responsibleDepartmentItems}
+              Data={filteredItems}
+            />
+          </div>
+        </div>
         <div className="overflow-x-auto w-full relative shadow-md sm:rounded-lg border p-6 rounded-lg bg-veryLightGray">
           <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue ">
             <TableHead>

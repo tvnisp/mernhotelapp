@@ -7,10 +7,11 @@ import {
   reset,
 } from "../../features/handover/handoverSlice";
 import Spinner from "../../components/shared/Spinner";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import FilterButton from "../../components/shared/FilterButton";
 import Pagination from "../../components/shared/Pagination";
 import { toast } from "react-toastify";
+import { BsPlusSquare } from "react-icons/bs";
 
 function DisplayHandovers() {
   const { handovers, isLoading, isSuccess } = useSelector(
@@ -82,6 +83,7 @@ function DisplayHandovers() {
       dispatch(deleteHandover(id));
       navigate("/handovers");
       toast.success("Handover has been deleted");
+      toast.clearWaitingQueue();
     }
   };
 
@@ -94,12 +96,22 @@ function DisplayHandovers() {
               Handovers
             </h1>
           </div>
-          <FilterButton
-            filterItems={filterItems}
-            setItems={setItems}
-            responsibleDepartmentItems={responsibleDepartmentItems}
-            Data={handovers}
-          />
+          <div className="w-full flex justify-between items-center">
+            <div>
+              <Link to="/handovers/create">
+                <BsPlusSquare className="text-3xl ml-1 mt-8 text-darkBlue" />
+              </Link>
+            </div>
+            <div>
+              <FilterButton
+                filterItems={filterItems}
+                setItems={setItems}
+                responsibleDepartmentItems={responsibleDepartmentItems}
+                Data={handovers}
+              />
+            </div>
+          </div>
+
           <div className="w-full grid grid-cols-1 items-start md:grid-cols-2 gap-4">
             {currentItems.map((handover) => (
               <Handover handover={handover} onClick={onHandoverDelete} />

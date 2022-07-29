@@ -6,7 +6,8 @@ import Spinner from "../components/shared/Spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { login } from "../features/auth/authSlice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import Notification from "../components/shared/Notification";
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ function Login() {
       navigate("/");
       toast.success(user.name + " has logged in");
     }
-  }, [isLoading]);
+  }, [user, isLoading, isError, isSuccess, message, navigate]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -77,26 +78,41 @@ function Login() {
                   type="password"
                   placeholder="Password"
                 />
-                <FormButton type="submit">
-                  Login <FaSignInAlt className="inline" />
-                </FormButton>
+                <div className="flex flex-col xl:flex-row justify-between">
+                  <FormButton type="submit">
+                    Login <FaSignInAlt className="inline" />
+                  </FormButton>
+                  <div className="mt-4 xl:mt-0">
+                    <Notification txtColor={"brightRed"}>
+                      Not a member?
+                      <Link
+                        className="mx-1 hover:text-darkBlue"
+                        to={"/register"}
+                      >
+                        Sign Up
+                      </Link>
+                    </Notification>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
           {/* Info */}
           <div className="hidden md:border-l-2 md:h-2/3 border-darkBlue md:flex flex-col md:justify-center space-y-3 md:w-1/2">
             <div className="mt-2 text-brightRedLight capitalize text-3xl font-bold text-end ">
-              HotelCommunity
+              <Link to="/">HotelCommunity</Link>
             </div>
             <div className="mt-2 capitalize text-2xl text-end">
               Communicate with your team
             </div>
             <div className="text-2xl capitalize text-end  text-darkGrayishBlue">
-              Report incidents
+              <Link to="/incidents/create">Report incidents</Link>
             </div>
-            <div className="text-2xl capitalize text-end">Share plans</div>
+            <div className="text-2xl capitalize text-end">
+              <Link to="/plans/create">Share plans</Link>
+            </div>
             <div className="text-2xl capitalize text-darkGrayishBlue text-end">
-              Write handovers
+              <Link to="/handovers/create">Write handovers</Link>
             </div>
           </div>
         </div>

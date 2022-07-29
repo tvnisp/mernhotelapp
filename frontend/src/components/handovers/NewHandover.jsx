@@ -50,6 +50,8 @@ function NewIncident() {
 
     dispatch(createHandover(formData));
     setFormData({ handoverDescription: "", shift: "", outlet: "" });
+    toast.success("Handover created");
+    toast.clearWaitingQueue();
   };
 
   if (isLoading) {

@@ -74,6 +74,8 @@ function NewIncident() {
       responsibleDepartment: "",
       priorityLevel: "",
     });
+    toast.success("Incident created");
+    toast.clearWaitingQueue();
   };
 
   if (isLoading) {
