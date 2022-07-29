@@ -14,19 +14,7 @@ function OpenIncidents() {
   const { incidents, isLoading, isSuccess } = useSelector(
     (state) => state.incidents
   );
-
-  // const filterItems = incidents.filter((incident) =>
-  //   incident.status.includes("closed")
-  // );
-  // const menuItems = [
-  //   ...new Set(filterItems.map((Val) => Val.responsibleDepartment)),
-  // ];
-  // const filterItem = (curcat) => {
-  //   const newItem = incidents.filter((newVal) => {
-  //     return newVal.responsibleDepartment === curcat;
-  //   });
-  //   setItem(newItem);
-  // };
+  const [items, setItems] = useState([]);
 
   //Pagination
   //State
@@ -36,8 +24,11 @@ function OpenIncidents() {
   const indexOfLastItem = currentPage * itemPerPage;
   const indexOfFirsItem = indexOfLastItem - itemPerPage;
 
+  //Filter the items
+  const filteredItems = incidents.filter((item) => item.status === "closed");
+
   //Sort the items
-  const sortedItems = [...incidents].sort((a, b) => {
+  const sortedItems = [...items].sort((a, b) => {
     if (a.createdAt > b.createdAt) {
       return -1;
     } else {
@@ -45,11 +36,24 @@ function OpenIncidents() {
     }
   });
 
-  //Filter the items
-  const filteredItems = sortedItems.filter((item) => item.status === "closed");
-
   //Get current items
-  const currentItems = filteredItems.slice(indexOfFirsItem, indexOfLastItem);
+  const currentItems = sortedItems.slice(indexOfFirsItem, indexOfLastItem);
+
+  //Filter by department
+  const responsibleDepartmentItems = [
+    ...new Set(filteredItems.map((Val) => Val.responsibleDepartment)),
+  ];
+
+  const priorityLevelItems = [
+    ...new Set(filteredItems.map((Val) => Val.priorityLevel)),
+  ];
+
+  const filterItems = (curcat, type) => {
+    const newItem = filteredItems.filter((newVal) => {
+      return newVal[type] === curcat;
+    });
+    setItems(newItem);
+  };
 
   //Paginate function
   const paginate = (number) => setCurrentPage(number);
@@ -68,6 +72,11 @@ function OpenIncidents() {
     dispatch(getIncidents());
   }, [dispatch]);
 
+  useEffect(() => {
+    setItems(filteredItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [incidents]);
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -80,12 +89,13 @@ function OpenIncidents() {
             Closed Incidents
           </h1>
         </div>
-        {/* <FilterButton
-          filterItem={filterItem}
-          setItem={setItem}
-          menuItems={menuItems}
-          Data={filterItems}
-        /> */}
+        <FilterButton
+          filterItems={filterItems}
+          setItems={setItems}
+          priorityLevelItems={priorityLevelItems}
+          responsibleDepartmentItems={responsibleDepartmentItems}
+          Data={filteredItems}
+        />
 
         <div className="border p-6 rounded-lg bg-veryLightGray overflow-x-auto w-full relative shadow-md sm:rounded-lg">
           <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue dark:text-gray-400">

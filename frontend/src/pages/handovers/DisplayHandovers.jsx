@@ -16,6 +16,7 @@ function DisplayHandovers() {
   const { handovers, isLoading, isSuccess } = useSelector(
     (state) => state.handovers
   );
+  const [items, setItems] = useState([]);
 
   //Pagination
   //State
@@ -26,7 +27,7 @@ function DisplayHandovers() {
   const indexOfFirsItem = indexOfLastItem - itemPerPage;
 
   //Sort the items
-  const sortedItems = [...handovers].sort((a, b) => {
+  const sortedItems = [...items].sort((a, b) => {
     if (a.createdAt > b.createdAt) {
       return -1;
     } else {
@@ -36,6 +37,18 @@ function DisplayHandovers() {
 
   //Get current items
   const currentItems = sortedItems.slice(indexOfFirsItem, indexOfLastItem);
+
+  //Filter by department
+  const responsibleDepartmentItems = [
+    ...new Set(handovers.map((Val) => Val.outlet)),
+  ];
+
+  const filterItems = (curcat) => {
+    const newItem = handovers.filter((newVal) => {
+      return newVal.outlet === curcat;
+    });
+    setItems(newItem);
+  };
 
   //Paginate function
   const paginate = (number) => setCurrentPage(number);
@@ -54,6 +67,11 @@ function DisplayHandovers() {
   useEffect(() => {
     dispatch(getHandovers());
   }, [dispatch]);
+
+  useEffect(() => {
+    setItems(handovers);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handovers]);
 
   if (isLoading) {
     return <Spinner />;
@@ -76,12 +94,12 @@ function DisplayHandovers() {
               Handovers
             </h1>
           </div>
-          {/* <FilterButton
-            filterItem={filterItem}
-            setItem={setItem}
-            menuItems={menuItems}
+          <FilterButton
+            filterItems={filterItems}
+            setItems={setItems}
+            responsibleDepartmentItems={responsibleDepartmentItems}
             Data={handovers}
-          /> */}
+          />
           <div className="w-full grid grid-cols-1 items-start md:grid-cols-2 gap-4">
             {currentItems.map((handover) => (
               <Handover handover={handover} onClick={onHandoverDelete} />

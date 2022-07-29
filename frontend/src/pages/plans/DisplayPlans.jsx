@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 
 function DisplayHandovers() {
   const { plans, isLoading, isSuccess } = useSelector((state) => state.plans);
+  const [items, setItems] = useState([]);
 
   //Pagination
   //State
@@ -20,7 +21,7 @@ function DisplayHandovers() {
   const indexOfFirsItem = indexOfLastItem - itemPerPage;
 
   //Sort the items
-  const sortedItems = [...plans].sort((a, b) => {
+  const sortedItems = [...items].sort((a, b) => {
     if (a.createdAt > b.createdAt) {
       return -1;
     } else {
@@ -30,6 +31,18 @@ function DisplayHandovers() {
 
   //Get current items
   const currentItems = sortedItems.slice(indexOfFirsItem, indexOfLastItem);
+
+  //Filter by department
+  const responsibleDepartmentItems = [
+    ...new Set(plans.map((Val) => Val.outlet)),
+  ];
+
+  const filterItems = (curcat) => {
+    const newItem = plans.filter((newVal) => {
+      return newVal.outlet === curcat;
+    });
+    setItems(newItem);
+  };
 
   //Paginate function
   const paginate = (number) => setCurrentPage(number);
@@ -48,6 +61,11 @@ function DisplayHandovers() {
   useEffect(() => {
     dispatch(getPlans());
   }, [dispatch]);
+
+  useEffect(() => {
+    setItems(plans);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [plans]);
 
   const onPlanDelete = (id) => {
     if (window.confirm("Are you sure you want to delete it?")) {
@@ -70,12 +88,12 @@ function DisplayHandovers() {
               Plans
             </h1>
           </div>
-          {/* <FilterButton
-            filterItem={filterItem}
-            setItem={setItem}
-            menuItems={menuItems}
+          <FilterButton
+            filterItems={filterItems}
+            setItems={setItems}
+            responsibleDepartmentItems={responsibleDepartmentItems}
             Data={plans}
-          /> */}
+          />
           <div className="min-w-full">
             {currentItems.map((plan) => (
               <Plan plan={plan} onClick={onPlanDelete} />
