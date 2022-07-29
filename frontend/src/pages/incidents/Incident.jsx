@@ -147,11 +147,20 @@ function Incident() {
               Image:
             </div>
             <div className="flex justify-center items-center bg-brightRedSupLight border-b rounded text-left p-1  text-darBlue">
-              <img
-                className="h-80 rounded"
-                src={`${incident.productImage}`}
-                alt="Incident"
-              />
+              {incident.productImage &&
+              incident.productImage.startsWith("up") ? (
+                <img
+                  className="h-80 rounded"
+                  src={`/${incident.productImage}`}
+                  alt="Incident"
+                />
+              ) : (
+                <img
+                  className="h-80 rounded"
+                  src={`${incident.productImage}`}
+                  alt="Incident"
+                />
+              )}
             </div>
             <div className="mt-3.5 flex items-center justify-start space-x-2">
               {incident.status !== "closed" ? (
