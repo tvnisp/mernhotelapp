@@ -26,12 +26,14 @@ function Login() {
   useEffect(() => {
     if (isError) {
       toast.error(message);
+      toast.clearWaitingQueue();
     }
 
     //Redirect when loggen in
     if (isSuccess || user) {
       navigate("/");
       toast.success(user.name + " has logged in");
+      toast.clearWaitingQueue();
     }
   }, [user, isLoading, isError, isSuccess, message, navigate]);
 
