@@ -9,7 +9,7 @@ function Plan({ plan, onClick }) {
     <>
       <div className="border w-full md:grid grid-cols-4 flex flex-col p-6 rounded-lg bg-veryLightGray gap-x-4">
         <div className="order-2 md:order-1 col-span-3">
-          <img className="w-full" src={`/${plan.planImage}`} alt="Plan" />
+          <img className="w-full" src={`${plan.planImage}`} alt="Plan" />
         </div>
         <div className="order-1 md:order-2 w-full mb-4 md:mb-0">
           <div className=" border-b text-left p-1 mb-2 text-2xl text-darkBlue">
