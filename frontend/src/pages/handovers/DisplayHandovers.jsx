@@ -7,11 +7,10 @@ import {
   reset,
 } from "../../features/handover/handoverSlice";
 import Spinner from "../../components/shared/Spinner";
-import { useNavigate, Link } from "react-router-dom";
-import FilterButton from "../../components/shared/FilterButton";
+import { useNavigate } from "react-router-dom";
 import Pagination from "../../components/shared/Pagination";
 import { toast } from "react-toastify";
-import { BsPlusSquare } from "react-icons/bs";
+import Filters from "../../components/shared/Filters";
 
 function DisplayHandovers() {
   const { handovers, isLoading, isSuccess } = useSelector(
@@ -96,21 +95,14 @@ function DisplayHandovers() {
               Handovers
             </h1>
           </div>
-          <div className="w-full flex justify-between items-center">
-            <div>
-              <Link to="/handovers/create">
-                <BsPlusSquare className="text-3xl ml-1 mt-8 text-darkBlue" />
-              </Link>
-            </div>
-            <div>
-              <FilterButton
-                filterItems={filterItems}
-                setItems={setItems}
-                responsibleDepartmentItems={responsibleDepartmentItems}
-                Data={handovers}
-              />
-            </div>
-          </div>
+
+          <Filters
+            link="/handovers/create"
+            filterItems={filterItems}
+            setItems={setItems}
+            responsibleDepartmentItems={responsibleDepartmentItems}
+            Data={handovers}
+          />
 
           <div className="w-full grid grid-cols-1 items-start md:grid-cols-2 gap-4">
             {currentItems.map((handover) => (

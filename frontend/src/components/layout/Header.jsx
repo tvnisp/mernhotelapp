@@ -67,7 +67,7 @@ function Header() {
               >
                 Incidents
               </Link>
-              <div className="absolute hidden peer-hover:flex hover:flex flex-col w-34 bg-brightRedSupLight border rounded border-brightRedLight">
+              <div className="absolute z-10 hidden peer-hover:flex hover:flex flex-col w-34 bg-brightRedSupLight border rounded border-brightRedLight">
                 <Link
                   className="p-1 w-full text-brightRed hover:text-darkBlue"
                   to={"/incidents/create"}
@@ -97,7 +97,7 @@ function Header() {
               >
                 Handovers
               </Link>
-              <div className="absolute hidden peer-hover:flex hover:flex flex-col w-34 bg-brightRedSupLight border rounded border-brightRedLight">
+              <div className="absolute z-10 hidden peer-hover:flex hover:flex flex-col w-34 bg-brightRedSupLight border rounded border-brightRedLight">
                 <Link
                   className="p-1 w-full text-brightRed hover:text-darkBlue"
                   to={"/handovers/create"}
@@ -118,7 +118,7 @@ function Header() {
               <Link className="hover:text-darkGrayishBlue peer" to={"/plans"}>
                 Plans
               </Link>
-              <div className="absolute hidden peer-hover:flex hover:flex flex-col w-34 bg-brightRedSupLight border rounded border-brightRedLight">
+              <div className="absolute z-10 hidden peer-hover:flex hover:flex flex-col w-34 bg-brightRedSupLight border rounded border-brightRedLight">
                 <Link
                   className="p-1 w-full text-brightRed hover:text-darkBlue"
                   to={"/plans/create"}

@@ -7,9 +7,8 @@ import LightRowTable from "../../components/incidents/shared/LightRowTable";
 import TableHead from "../../components/incidents/shared/TableHead";
 import { Link } from "react-router-dom";
 import { AiOutlineFolderOpen } from "react-icons/ai";
-import FilterButton from "../../components/shared/FilterButton";
 import Pagination from "../../components/shared/Pagination";
-import { BsPlusSquare } from "react-icons/bs";
+import Filters from "../../components/shared/Filters";
 
 function OpenIncidents() {
   const { incidents, isLoading, isSuccess } = useSelector(
@@ -90,22 +89,16 @@ function OpenIncidents() {
             Closed Incidents
           </h1>
         </div>
-        <div className="w-full flex justify-between items-center">
-          <div>
-            <Link to="/incidents/create">
-              <BsPlusSquare className="text-3xl ml-1 mt-8 text-darkBlue" />
-            </Link>
-          </div>
-          <div>
-            <FilterButton
-              filterItems={filterItems}
-              setItems={setItems}
-              priorityLevelItems={priorityLevelItems}
-              responsibleDepartmentItems={responsibleDepartmentItems}
-              Data={filteredItems}
-            />
-          </div>
-        </div>
+
+        <Filters
+          link="/incidents/create"
+          filterItems={filterItems}
+          setItems={setItems}
+          priorityLevelItems={priorityLevelItems}
+          responsibleDepartmentItems={responsibleDepartmentItems}
+          Data={filteredItems}
+        />
+
         <div className="border p-6 rounded-lg bg-veryLightGray overflow-x-auto w-full relative shadow-md sm:rounded-lg">
           <table className="w-full text-sm md:text-md lg:text-lg text-left text-darkGrayishBlue dark:text-gray-400">
             <TableHead>

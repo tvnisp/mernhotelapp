@@ -3,11 +3,10 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getPlans, deletePlan, reset } from "../../features/plan/planSlice";
 import Spinner from "../../components/shared/Spinner";
-import { useNavigate, Link } from "react-router-dom";
-import FilterButton from "../../components/shared/FilterButton";
+import { useNavigate } from "react-router-dom";
 import Pagination from "../../components/shared/Pagination";
 import { toast } from "react-toastify";
-import { BsPlusSquare } from "react-icons/bs";
+import Filters from "../../components/shared/Filters";
 
 function DisplayHandovers() {
   const { plans, isLoading, isSuccess } = useSelector((state) => state.plans);
@@ -89,21 +88,14 @@ function DisplayHandovers() {
               Plans
             </h1>
           </div>
-          <div className="w-full flex justify-between items-center">
-            <div>
-              <Link to="/plans/create">
-                <BsPlusSquare className="text-3xl ml-1 mt-8 text-darkBlue" />
-              </Link>
-            </div>
-            <div>
-              <FilterButton
-                filterItems={filterItems}
-                setItems={setItems}
-                responsibleDepartmentItems={responsibleDepartmentItems}
-                Data={plans}
-              />
-            </div>
-          </div>
+
+          <Filters
+            link="/incidents/create"
+            filterItems={filterItems}
+            setItems={setItems}
+            responsibleDepartmentItems={responsibleDepartmentItems}
+            Data={plans}
+          />
 
           <div className="min-w-full">
             {currentItems.map((plan) => (
