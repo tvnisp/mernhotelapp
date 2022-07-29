@@ -151,6 +151,7 @@ function Register() {
                     "Concierge",
                     "Sales and Marketing",
                     "Finance",
+                    "Groom",
                   ]}
                 />
                 <div className="flex flex-col xl:flex-row justify-between">

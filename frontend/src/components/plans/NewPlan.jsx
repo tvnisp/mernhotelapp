@@ -107,6 +107,7 @@ function NewPlan() {
                 "Concierge",
                 "Sales and Marketing",
                 "Finance",
+                "Groom",
               ]}
             />
             <Input

@@ -144,6 +144,7 @@ function NewIncident() {
                 "Concierge",
                 "Sales and Marketing",
                 "Finance",
+                "Groom",
               ]}
             />
             <textarea
