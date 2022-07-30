@@ -94,7 +94,7 @@ function NewIncident() {
         <div className="border flex flex-col space-y-4 p-6 rounded-lg bg-veryLightGray">
           <form className="flex flex-col space-y-3" onSubmit={onSubmit}>
             <Input
-              bg="bg-darkGrayishBlue"
+              bg="bg-gray-600"
               disabled={true}
               name="name"
               value={name}
@@ -102,7 +102,7 @@ function NewIncident() {
               placeholder="Name"
             />
             <Input
-              bg="bg-darkGrayishBlue"
+              bg="bg-gray-600"
               disabled={true}
               name="email"
               value={email}

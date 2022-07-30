@@ -8,7 +8,7 @@ function Handover({ handover, onClick }) {
     <>
       <div className="border w-full flex flex-col p-6 rounded-lg bg-veryLightGray">
         <div className=" border-b text-left p-1 mb-2 text-2xl text-darkBlue">
-          Employee: {handover.username}
+          Posted By: {handover.username}
         </div>
         <div className=" bg-brightRedLight rounded mb-1 text-left p-1 text-brightRedSupLight">
           Outlet: {handover.outlet}
@@ -20,7 +20,7 @@ function Handover({ handover, onClick }) {
           Description: {handover.handoverDescription}
         </div>
         <div className=" bg-brightRedSupLight text-left p-1 rounded mb-1 text-darBlue">
-          Date: {new Date(handover.createdAt).toLocaleString("en-US")}
+          Posted At: {new Date(handover.createdAt).toLocaleString("en-US")}
         </div>
         <div className="mt-2">
           {(user._id === handover.user || user.rights > 1) && (

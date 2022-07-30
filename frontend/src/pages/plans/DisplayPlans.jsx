@@ -90,7 +90,7 @@ function DisplayHandovers() {
           </div>
 
           <Filters
-            link="/incidents/create"
+            link="/plans/create"
             filterItems={filterItems}
             setItems={setItems}
             responsibleDepartmentItems={responsibleDepartmentItems}

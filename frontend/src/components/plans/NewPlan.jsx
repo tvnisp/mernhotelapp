@@ -15,9 +15,10 @@ function NewPlan() {
 
   const [formData, setFormData] = useState({
     outlet: "",
+    description: "",
   });
 
-  const { outlet } = formData;
+  const { outlet, description } = formData;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,6 +57,7 @@ function NewPlan() {
 
     const planData = new FormData();
     planData.append("outlet", outlet);
+    planData.append("description", description);
     planData.append("file", file);
     dispatch(createPlan(planData));
     setFormData({
@@ -73,7 +75,7 @@ function NewPlan() {
         <div className="border flex flex-col space-y-4 p-6 rounded-lg bg-veryLightGray">
           <form className="flex flex-col space-y-3" onSubmit={onSubmit}>
             <Input
-              bg="bg-darkGrayishBlue"
+              bg="bg-gray-600"
               disabled={true}
               name="name"
               value={user.name}
@@ -81,7 +83,7 @@ function NewPlan() {
               placeholder="Name"
             />
             <Input
-              bg="bg-darkGrayishBlue"
+              bg="bg-gray-600"
               disabled={true}
               name="email"
               value={user.email}
@@ -109,6 +111,16 @@ function NewPlan() {
                 "Finance",
                 "Groom",
               ]}
+            />
+            <textarea
+              className="border-2 rounded border-black p-1 md:p-2 relative w-full input input-lg bg-brightRedLight text-white placeholder-white"
+              rows={3}
+              name="description"
+              value={description}
+              onChange={onChange}
+              type="textarea"
+              placeholder="Description"
+              required={true}
             />
             <Input
               onChange={onImageChange}

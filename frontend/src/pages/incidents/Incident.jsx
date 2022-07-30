@@ -79,6 +79,23 @@ function Incident() {
             <div className=" bg-brightRedSupLight rounded text-left p-1 mb-2 text-darBlue">
               {incident.username}
             </div>
+            {incident.assignedTo && (
+              <>
+                <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
+                  Assigned To:
+                </div>
+                <div className=" bg-brightRedSupLight rounded text-left p-1 mb-2 text-darBlue">
+                  {incident.assignedTo.name} {incident.assignedTo.lastname}
+                </div>
+              </>
+            )}
+
+            <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
+              Responsible Department:
+            </div>
+            <div className=" bg-brightRedSupLight rounded text-left p-1 mb-2 text-darBlue">
+              {incident.responsibleDepartment}
+            </div>
             <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
               Created At:
             </div>
@@ -110,18 +127,6 @@ function Incident() {
               )}
             </div>
             <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
-              Location:
-            </div>
-            <div className=" bg-brightRedSupLight rounded text-left p-1 mb-2 text-darBlue">
-              {incident.location}
-            </div>
-            <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
-              Responsible Department:
-            </div>
-            <div className=" bg-brightRedSupLight rounded text-left p-1 mb-2 text-darBlue">
-              {incident.responsibleDepartment}
-            </div>
-            <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
               Priority Level:
             </div>
             <div className=" bg-brightRedSupLight rounded text-left p-1 mb-2 text-darBlue">
@@ -137,6 +142,12 @@ function Incident() {
             </div>
           </div>
           <div className="w-full md:w-1/2">
+            <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
+              Location:
+            </div>
+            <div className=" bg-brightRedSupLight rounded text-left p-1 mb-2 text-darBlue">
+              {incident.location}
+            </div>
             <div className=" bg-brightRedLight text-left p-1 rounded text-brightRedSupLight">
               Description:
             </div>

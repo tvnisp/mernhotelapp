@@ -1,6 +1,7 @@
 import FilterButton from "./FilterButton";
 import { BsPlusLg } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import FormButton from "./FormButton";
 
 function Filters({
   link,
@@ -14,7 +15,11 @@ function Filters({
     <div className="w-full flex justify-between items-center">
       <div>
         <Link to={link}>
-          <BsPlusLg className="text-3xl ml-2 mt-8 text-darkBlue" />
+          <div className="pt-6">
+            <FormButton>
+              Add new <BsPlusLg className="inline pb-1 ml-1" />
+            </FormButton>
+          </div>
         </Link>
       </div>
       <div>

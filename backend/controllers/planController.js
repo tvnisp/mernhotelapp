@@ -39,7 +39,7 @@ const createPlan = asyncHandler(async (req, res) => {
   }
 
   //Parse data from dom
-  const { outlet } = req.body;
+  const { outlet, description } = req.body;
 
   //Validation
   if (!outlet) {
@@ -51,7 +51,8 @@ const createPlan = asyncHandler(async (req, res) => {
   const plan = await Plan.create({
     user,
     username: user.name,
-    outlet: outlet,
+    outlet,
+    description,
     planImage: req.file ? req.file.path : "",
   });
 
